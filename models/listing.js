@@ -11,7 +11,7 @@ const listingSchema = new mongoose.Schema({
   },
   price: { type: Number, default: 1000 },
   location: { type: String, required: true },
-  country: { type: String, requires: true },
+  country: { type: String, required: true },
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

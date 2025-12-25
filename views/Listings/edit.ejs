@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StaySphere</title>
+  </head>
+  <body>
+    <h3>Edit your Listings</h3>
+    <form action="/listings/<%=list._id%>?_method=PUT" method="POST">
+      <input name="listings[title]" type="text" value="<%=list.title%>" />
+      <br />
+
+      <textarea
+        name="listings[description]"
+        
+      ><%=list.description%></textarea>
+      <br />
+
+      <input type="url" name="listings[image]" value="<%=list.image%>" />
+      <br />
+
+      <input type="number" name="listings[price]" value="<%=list.price%>"/>
+      <br />
+
+      <input
+        type="text"
+        name="listings[location]"
+        value="<%=list.location%>""
+        
+      />
+      <br />
+
+      <input
+        type="text"
+        name="listings[country]"
+        value="<%=list.country%>"
+        
+      />
+      <br />
+
+      <button>update</button>
+    </form>
+  </body>
+</html>
