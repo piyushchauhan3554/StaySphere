@@ -219,3 +219,36 @@ footer {
   min-height: 6rem;
   resize: none;
 }
+
+/* show img */
+
+.show-img{
+  height: 35vh;
+  border-radius: 14px;
+}
+
+.info-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.show-btns-containers{
+  display: flex;
+  gap: 20px;
+}
+
+.show-card{
+  border: 2px solid rgb(223, 217, 217) !important;
+  padding: 10px !important;
+}
+
+.show-edit-btn{
+  background-color: red !important;
+  border: none;
+  color: white !important;
+  padding: 6px 22px !important;
+}
+
+.show-edit-btn:hover{
+  background-color: rgb(234, 60, 60) !important;
+}

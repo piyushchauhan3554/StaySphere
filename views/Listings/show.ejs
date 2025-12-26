@@ -1,18 +1,22 @@
 <% layout("Layouts/boilerplate") %>
-    <h2>List</h2>
-    <ul>
-      <li>Title: <%=list.title%></li>
-      <li>Description: <%=list.description%></li>
-      <li>Price: &#8377; <%= list.price.toLocaleString('en-IN') %></li>
-      <li>Location: <%=list.location%></li>
-      <li>Country: <%=list.country%></li>
-      <img style="height: 300px; width: 300px" src="<%=list.image%>" />
-    </ul>
-    <form action="/listings/<%=list._id%>/edit" method="get">
-      <button>Edit</button>
-    </form>
-    <form action="/listings/<%=list._id%>?_method=DELETE" method="post" >
-      <button>Delete</button>
-    </form>
-  </body>
-</html>
+
+<div class="row">
+  <div class="col-8 offset-2 listing-heading"><h2>Listing Details</h2></div>
+  <div class="card show-card col-6 offset-2">
+    <img class="show-img" src="<%=list.image%>" />
+    <div class="info-container mt-3">
+      <p><b style="font-size: larger;"> <%=list.title%></b></p>
+      <p><b>Description:</b> <%=list.description%></p>
+      <p><b>Price:</b> &#8377;<%= list.price.toLocaleString('en-IN') %></p>
+      <p><b>Location:</b> <%=list.location%>, <%=list.country%></p>
+    </div>
+    <div class="show-btns-containers">
+      <form action="/listings/<%=list._id%>/edit" method="get">
+        <button class="btn show-edit-btn">Edit</button>
+      </form>
+      <form action="/listings/<%=list._id%>?_method=DELETE" method="post">
+        <button class="btn btn-dark">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
