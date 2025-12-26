@@ -1,3 +1,45 @@
-body{
-  background-color: pink;
+.navbar {
+  height: 5rem;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(6px); /* subtle glass effect, still styling only */
+  background: #fff !important;
+  padding: 0 1.5rem;
+  border-bottom: 1.5px solid #e0e0e0;
+}
+
+.fa-house {
+  color: #ff385c;
+  font-size: 2.2rem; /* more visible and balanced */
+}
+
+.navbar-nav {
+  gap: 1.2rem; /* spacing between links */
+}
+
+.nav-link {
+  color: black !important;
+  font-size: 1.15rem !important;
+  padding: 0.6rem 1rem !important;
+  transition: 0.25s ease-in-out; /* smooth hover transition */
+}
+
+.nav-link:hover {
+  background-color: #ff385c;
+  border-radius: 4px;
+  text-decoration: underline;
+  text-underline-offset: 4px; /* cleaner underline spacing */
+  color: white !important; /* improves contrast, styling only */
+}
+
+.navbar-brand {
+  font-size: 1.6rem;        /* bigger brand text */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;              /* space between icon and text */
+  color: black !important;
 }
