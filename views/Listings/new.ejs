@@ -2,7 +2,7 @@
 <h3 class="listing-heading">Add New Listing</h3>
 <div class="row">
   <div class="col-8 offset-2">
-    <form action="/listings" method="POST">
+    <form action="/listings" method="POST" novalidate class="needs-validation">
       <div class="input-div">
         <label for="title" class="form-label">Title</label>
         <input
@@ -10,12 +10,21 @@
           type="text"
           placeholder="enter a catchy title"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">correct title</div>
+        <div class="invalid-feedback">enter correct title</div>
       </div>
 
       <div class="input-div">
         <label for="description" class="form-label">Description</label>
-        <textarea name="listings[description]" class="form-control"></textarea>
+        <textarea
+          name="listings[description]"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="valid-feedback">correct description</div>
+        <div class="invalid-feedback">enter correct description</div>
       </div>
 
       <div class="input-div">
@@ -26,6 +35,7 @@
           placeholder="Enter image url / link"
           class="form-control"
         />
+        <div class="valid-feedback">correct image url</div>
       </div>
 
       <div class="row">
@@ -36,7 +46,10 @@
             name="listings[price]"
             placeholder="eg: 1200"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">correct price</div>
+          <div class="invalid-feedback">enter correct price</div>
         </div>
 
         <div class="col-md-8 input-div">
@@ -46,7 +59,10 @@
             name="listings[country]"
             placeholder="enter country"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">correct country</div>
+          <div class="invalid-feedback">enter correct country name</div>
         </div>
       </div>
 
@@ -57,7 +73,10 @@
           name="listings[location]"
           placeholder="enter location"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">correct location</div>
+        <div class="invalid-feedback">enter correct location</div>
       </div>
 
       <button class="btn btn-danger">Add</button>
