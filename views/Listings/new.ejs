@@ -12,8 +12,10 @@
           class="form-control"
           required
         />
-        <div class="valid-feedback">correct title</div>
-        <div class="invalid-feedback">enter correct title</div>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+          Please enter a title for the listing.
+        </div>
       </div>
 
       <div class="input-div">
@@ -23,8 +25,8 @@
           class="form-control"
           required
         ></textarea>
-        <div class="valid-feedback">correct description</div>
-        <div class="invalid-feedback">enter correct description</div>
+        <div class="valid-feedback">Description looks good.</div>
+        <div class="invalid-feedback">Please provide a brief description.</div>
       </div>
 
       <div class="input-div">
@@ -35,21 +37,23 @@
           placeholder="Enter image url / link"
           class="form-control"
         />
-        <div class="valid-feedback">correct image url</div>
+        
       </div>
 
       <div class="row">
         <div class="col-md-4 input-div">
           <label for="price" class="form-label">Price</label>
           <input
-            
             name="listings[price]"
             placeholder="eg: 1200"
             class="form-control"
             required
+            type="number"
           />
-          <div class="valid-feedback">correct price</div>
-          <div class="invalid-feedback">enter correct price</div>
+          <div class="valid-feedback">Valid price.</div>
+          <div class="invalid-feedback">
+            Please enter a valid price (numbers only).
+          </div>
         </div>
 
         <div class="col-md-8 input-div">
@@ -61,8 +65,8 @@
             class="form-control"
             required
           />
-          <div class="valid-feedback">correct country</div>
-          <div class="invalid-feedback">enter correct country name</div>
+          <div class="valid-feedback">Country name looks good.</div>
+          <div class="invalid-feedback">Please enter a valid country name.</div>
         </div>
       </div>
 
@@ -75,8 +79,8 @@
           class="form-control"
           required
         />
-        <div class="valid-feedback">correct location</div>
-        <div class="invalid-feedback">enter correct location</div>
+        <div class="valid-feedback">Location looks good.</div>
+        <div class="invalid-feedback">Please enter the location.</div>
       </div>
 
       <button class="btn btn-danger">Add</button>

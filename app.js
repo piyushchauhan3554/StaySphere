@@ -7,7 +7,7 @@ const DBConnection = require("./utils/db.js");
 const Listing = require("./models/listing.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-const listingSchema=require("./schema.js")
+const listingSchema = require("./schema.js");
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -54,21 +54,26 @@ app.get(
   })
 );
 
+// validation middleware function to validate listings
+
+const validation = app.use((req, res, next) => {
+  const { error } = listingSchema.validate(req.body);
+  console.log(error);
+
+  if (error) {
+    const errMsg = error.details.map((el) => el.message).join(", ");
+    console.log(errMsg);
+
+    throw new ExpressError(400, errMsg);
+  } else next();
+});
 // new route
 
 app.post(
   "/listings",
+  validation,
   wrapAsync(async (req, res) => {
-    
-    // validation through Joi
-
-    const result=listingSchema.validate(req.body)
-    if(result.error){
-      throw new ExpressError(400,result.error)
-    }
-    
     const l1 = new Listing(req.body.listings);
-    
     await l1.save();
     res.redirect("/listings");
   })
@@ -88,12 +93,9 @@ app.get(
 // update route
 app.put(
   "/listings/:id",
+  validation,
   wrapAsync(async (req, res) => {
     const id = req.params.id;
-    if(!req.body.listings){
-      throw new ExpressError(400,"Listing data is empty")
-    }
-
     await Listing.findByIdAndUpdate(
       id,
       { ...req.body.listings },
@@ -120,8 +122,8 @@ app.use((req, res, next) => {
 
 // custom error handler
 app.use((err, req, res, next) => {
-  const { statusCode=500, message="Something went wrong" } = err;
-  res.status(statusCode).render("../views/Listings/error.ejs",{message});
+  const { statusCode = 500, message = "Something went wrong" } = err;
+  res.status(statusCode).render("../views/Listings/error.ejs", { message });
 });
 
 app.listen(PORT, () => {
