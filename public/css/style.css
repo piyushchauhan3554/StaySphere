@@ -252,3 +252,7 @@ footer {
 .show-edit-btn:hover{
   background-color: rgb(234, 60, 60) !important;
 }
+
+.err-msg-container{
+  text-align: center;
+}

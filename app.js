@@ -7,10 +7,13 @@ const DBConnection = require("./utils/db.js");
 const Listing = require("./models/listing.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const listingSchema=require("./schema.js")
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 const PORT = process.env.PORT || 5000;
@@ -56,10 +59,16 @@ app.get(
 app.post(
   "/listings",
   wrapAsync(async (req, res) => {
-    if(!req.body){
-      throw new ExpressError(400,"Listing data is empty")
+    
+    // validation through Joi
+
+    const result=listingSchema.validate(req.body)
+    if(result.error){
+      throw new ExpressError(400,result.error)
     }
+    
     const l1 = new Listing(req.body.listings);
+    
     await l1.save();
     res.redirect("/listings");
   })
@@ -81,10 +90,10 @@ app.put(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     const id = req.params.id;
-    if(!req.body){
+    if(!req.body.listings){
       throw new ExpressError(400,"Listing data is empty")
     }
-    
+
     await Listing.findByIdAndUpdate(
       id,
       { ...req.body.listings },
@@ -112,7 +121,7 @@ app.use((req, res, next) => {
 // custom error handler
 app.use((err, req, res, next) => {
   const { statusCode=500, message="Something went wrong" } = err;
-  res.status(statusCode).send(message);
+  res.status(statusCode).render("../views/Listings/error.ejs",{message});
 });
 
 app.listen(PORT, () => {
