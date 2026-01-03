@@ -56,17 +56,15 @@ app.get(
 
 // validation middleware function to validate listings
 
-const validation = app.use((req, res, next) => {
+const validation = (req, res, next) => {
   const { error } = listingSchema.validate(req.body);
-  console.log(error);
-
   if (error) {
     const errMsg = error.details.map((el) => el.message).join(", ");
     console.log(errMsg);
 
     throw new ExpressError(400, errMsg);
   } else next();
-});
+};
 // new route
 
 app.post(
