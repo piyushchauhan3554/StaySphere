@@ -126,7 +126,7 @@ footer {
   transition: 0.3s ease-in-out;
 }
 
-.card {
+.listings-card {
   border: none !important;
   margin-bottom: 2rem;
   overflow: hidden;
