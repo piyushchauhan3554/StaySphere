@@ -1,12 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const session = require("express-session");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const DBConnection = require("./utils/db.js");
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
+const flash=require("connect-flash")
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -19,11 +21,31 @@ app.engine("ejs", ejsMate);
 
 DBConnection();
 
-// root route
+const sessionOptions = {
+  secret: "mysupersecretstring",
+  resave: false,
+  uninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 
 app.get("/", (req, res) => {
   res.send("I am root route");
 });
+
+app.use(session(sessionOptions));
+app.use(flash())
+
+app.use((req,res,next)=>{
+  res.locals.success=req.flash("success")
+  res.locals.error=req.flash("error")
+  next()
+})
+// root route
+
 
 // routes
 app.use("/listings", listingsRouter);
