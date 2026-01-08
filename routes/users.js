@@ -3,12 +3,14 @@ const router = express.Router();
 const User = require("../models/user");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
+const { validateSignup, validateLogin } = require("../middlewares/validation");
 router.get("/signup", (req, res) => {
   res.render("./users/signup.ejs");
 });
 
 router.post(
   "/signup",
+  validateSignup,
   wrapAsync(async (req, res) => {
     try {
       const { email, username, password } = req.body;
@@ -33,14 +35,17 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
+  validateLogin,
   passport.authenticate("local", {
     failureFlash: true,
     failureRedirect: "/login",
   }),
-  wrapAsync((req, res) => {
+  (req, res) => {
+    console.log("auth successfull");
+
     req.flash("success", "Welcome back to StaySphere");
     res.redirect("/listings");
-  })
+  }
 );
 
 module.exports = router;
