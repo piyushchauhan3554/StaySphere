@@ -1,0 +1,35 @@
+<%layout("Layouts/boilerplate")%>
+<div class="row mt-3">
+  <h5 class="col-6 offset-3" style="text-align: center">Login form</h5>
+  <div class="col-6 offset-3 mt-5">
+    <form action="/login" method="post" novalidate class="needs-validation">
+      <div class="mb-2">
+        <label for="username" class="form-label">username</label>
+        <input
+          class="form-control"
+          type="text"
+          id="username"
+          placeholder="write your username"
+          name="username"
+          required
+        />
+        <div class="invalid-feedback">enter a username</div>
+      </div>
+
+      <div class="mb-2">
+        <label for="password" class="form-label">password</label>
+        <input
+          class="form-control"
+          type="password"
+          id="password"
+          placeholder="write your password"
+          name="password"
+          required
+        />
+      </div>
+      <div>
+        <button class="btn btn-success mt-2">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

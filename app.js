@@ -11,6 +11,7 @@ const DBConnection = require("./utils/db.js");
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRouter = require("./routes/listings.js");
 const reviewRouter = require("./routes/reviews.js");
+const userRouter=require("./routes/users.js");
 const flash=require("connect-flash")
 const app = express();
 app.set("view engine", "ejs");
@@ -70,7 +71,7 @@ app.get("/demoUser",async (req,res)=>{
 // routes
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-
+app.use("/",userRouter)
 // if none of the route match
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page not found"));
