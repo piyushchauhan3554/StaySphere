@@ -7,11 +7,12 @@
   <div class="card listings-card show-card col-6 offset-2">
     <img class="show-img" src="<%=list.image%>" />
     <div class="info-container mt-3">
-      <p><b>Owned By: </b><i><%=list.owner.username%></i> </p>
+      <p><b>Owned By: </b><i><%=list.owner.username%></i></p>
       <p><b>Description:</b> <%=list.description%></p>
       <p><b>Price:</b> &#8377;<%= list.price.toLocaleString('en-IN') %></p>
       <p><b>Location:</b> <%=list.location%>, <%=list.country%></p>
     </div>
+    <%if(currUser && list.owner._id.equals(currUser._id)){%>
     <div class="show-btns-containers">
       <form action="/listings/<%=list._id%>/edit" method="get">
         <button class="btn show-edit-btn">Edit</button>
@@ -20,14 +21,17 @@
         <button class="btn btn-dark">Delete</button>
       </form>
     </div>
+    <%}%>
+
     <hr />
     <div>
+      <%if(currUser){%>
       <h5 style="color: #ff385c"><b>Leave a Review</b></h5>
-      <form
+      <form 
         method="post"
         action="/listings/<%=list._id%>/reviews"
         novalidate
-        class="needs-validation"
+        class="needs-validation mb-4"
       >
         <label for="rating" class="form-label">Rating</label>
         <input
@@ -59,26 +63,29 @@
 
         <button class="btn-dark btn mt-3">submit</button>
       </form>
-      <hr />
+      <%}%>
+      
       <p><b>All Reviews</b></p>
-      <div class="row">
+      <div class="row ">
         <%if(!list.reviews.length){%>
-          <p>No reviews yet</p>
-        <%}else{%>
-          <%for(let review of list.reviews){%>
-        <div class="card col-5 ms-3 mb-4" >
+        <p>No reviews yet</p>
+        <%}else{%> <%for(let review of list.reviews){%>
+        <div class="card col-5 ms-3 mb-4">
           <div class="card-body">
-            <h6 class="card-title"><b>Added By: </b><i>anonymous</i></h6>
+            <h6 class="card-title"><b>Added By: @</b><i><%=review.author.username%></i></h6>
             <p class="card-text"><%=review.comment%></p>
-            <p>Ratings: <%=review.rating%> stars </p>
+            <p>Ratings: <%=review.rating%> stars</p>
           </div>
-          <form action="/listings/<%=list._id%>/reviews/<%=review._id%>?_method=DELETE" method="post">
+          <form
+            action="/listings/<%=list._id%>/reviews/<%=review._id%>?_method=DELETE"
+            method="post"
+          >
+           <%if(currUser && currUser._id.equals(review.author._id)){%>
             <button class="btn btn-danger mb-3">Delete</button>
+          <%}%>
           </form>
         </div>
-        <%}%>
-        <%}%>
-        
+        <%}%> <%}%>
       </div>
     </div>
   </div>

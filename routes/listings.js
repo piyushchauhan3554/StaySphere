@@ -4,6 +4,7 @@ const wrapAsync=require("../utils/wrapAsync.js")
 const Listing = require("../models/listing.js");
 const { validateListings } = require("../middlewares/validation.js")
 const {isLoggedIn}=require("../middlewares/isLoggedIn.js")
+const {isOwner}=require("../middlewares/isOwner.js")
 // index route
 
 router.get(
@@ -17,7 +18,7 @@ router.get(
 
 router.get("/new",isLoggedIn, (req, res) => {
   res.render("../views/Listings/new.ejs");
-  
+
 });
 
 // show route
@@ -26,7 +27,9 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     const { id } = req.params;
-    const list = await Listing.findById(id).populate("reviews").populate("owner");
+    const list = await Listing.findById(id).populate({path:"reviews",populate:{
+      path:"author"
+    }}).populate("owner");
     if(!list){
       req.flash("error","Listing does not exist")
       res.redirect("/listings")
@@ -54,7 +57,7 @@ router.post(
 // edit route
 
 router.get(
-  "/:id/edit",isLoggedIn,
+  "/:id/edit",isLoggedIn,isOwner,
   wrapAsync(async (req, res) => {
     const id = req.params.id;
     const list = await Listing.findById(id);
@@ -69,7 +72,7 @@ router.get(
 
 // update route
 router.put(
-  "/:id",isLoggedIn,
+  "/:id",isLoggedIn,isOwner,
   validateListings,
   wrapAsync(async (req, res) => {
     const id = req.params.id;
@@ -86,7 +89,7 @@ router.put(
 // delete route
 
 router.delete(
-  "/:id",isLoggedIn,
+  "/:id",isLoggedIn,isOwner,
   wrapAsync(async (req, res) => {
     await Listing.findByIdAndDelete(req.params.id);
     req.flash("success","Listing deleted successfully")
