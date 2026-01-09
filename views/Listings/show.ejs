@@ -7,6 +7,7 @@
   <div class="card listings-card show-card col-6 offset-2">
     <img class="show-img" src="<%=list.image%>" />
     <div class="info-container mt-3">
+      <p><b>Owned By: </b><i><%=list.owner.username%></i> </p>
       <p><b>Description:</b> <%=list.description%></p>
       <p><b>Price:</b> &#8377;<%= list.price.toLocaleString('en-IN') %></p>
       <p><b>Location:</b> <%=list.location%>, <%=list.country%></p>
@@ -67,7 +68,7 @@
           <%for(let review of list.reviews){%>
         <div class="card col-5 ms-3 mb-4" >
           <div class="card-body">
-            <h6 class="card-title"><b>Piyush Chauhan</b></h6>
+            <h6 class="card-title"><b>Added By: </b><i>anonymous</i></h6>
             <p class="card-text"><%=review.comment%></p>
             <p>Ratings: <%=review.rating%> stars </p>
           </div>

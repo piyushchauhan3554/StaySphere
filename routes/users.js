@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const wrapAsync = require("../utils/wrapAsync");
-const {storeRedirUrl}=require("../middlewares/isLoggedIn")
+const { storeRedirUrl } = require("../middlewares/isLoggedIn");
 const passport = require("passport");
 const { validateSignup, validateLogin } = require("../middlewares/validation");
 router.get("/signup", (req, res) => {
@@ -11,6 +11,7 @@ router.get("/signup", (req, res) => {
 
 router.post(
   "/signup",
+  storeRedirUrl,
   validateSignup,
   wrapAsync(async (req, res) => {
     try {
@@ -24,7 +25,8 @@ router.post(
       req.login(registeredUser, (err) => {
         if (err) return next(err);
         req.flash("success", "User Registered Successfully");
-        res.redirect("/listings");
+        const url = res.locals.redirectUrl || "/listings";
+        res.redirect(url);
       });
     } catch (error) {
       req.flash("error", error.message);
@@ -38,7 +40,8 @@ router.get("/login", (req, res) => {
 });
 
 router.post(
-  "/login",storeRedirUrl,
+  "/login",
+  storeRedirUrl,
   validateLogin,
   passport.authenticate("local", {
     failureFlash: true,
@@ -48,9 +51,9 @@ router.post(
     // console.log("auth successfull");
 
     req.flash("success", "Welcome back to StaySphere");
-    const url=res.locals.redirectUrl || "/listings"
-    console.log(url);
-    
+    const url = res.locals.redirectUrl || "/listings";
+    // console.log(url);
+
     res.redirect(url);
   }
 );
