@@ -2,59 +2,18 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const { isLoggedIn } = require("../middlewares/isLoggedIn.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const Listing = require("../models/listing.js");
-const Review = require("../models/review.js");
 const { validateReviews } = require("../middlewares/validation.js");
-const {isReviewAuthor}=require("../middlewares/isReviewAuthor.js")
-// review post route
+const { isReviewAuthor } = require("../middlewares/isReviewAuthor.js");
+const reviewController = require("../controllers/reviews.js");
 
-router.post(
-  "/",
-  isLoggedIn,
-  validateReviews,
-  wrapAsync(async (req, res, next) => {
-    const id = req.params.id;
-    const review = new Review(req.body.review);
+router
+  .route("/")
+  .post(isLoggedIn, validateReviews, wrapAsync(reviewController.reviewPost))
+  .get(wrapAsync(reviewController.reviewGetReq));
 
-    const listing = await Listing.findById(id);
-    listing.reviews.push(review);
-    review.author= req.user._id;
-    await review.save();
-    await listing.save();
-    req.flash("success", "new Review Added!!");
-    res.redirect(`/listings/${id}`);
-  })
-);
+router
+  .route("/:reviewId")
+  .delete(isLoggedIn, isReviewAuthor, wrapAsync(reviewController.destroyReview))
+  .get(wrapAsync(reviewController.getReviewIdReq));
 
-// review get req
-router.get(
-  "/",
-  wrapAsync(async (req, res, next) => {
-    const id = req.params.id;
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-// review delete route
-
-router.delete(
-  "/:reviewId",
-  isLoggedIn,
-  isReviewAuthor,
-  wrapAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    req.flash("success", "Review Deleted Successfully");
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-router.get(
-  "/:reviewId",
-  wrapAsync(async (req, res, next) => {
-    const id = req.params.id;
-    res.redirect(`/listings/${id}`);
-  })
-);
 module.exports = router;
