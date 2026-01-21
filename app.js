@@ -36,11 +36,10 @@ const sessionOptions = {
   },
 };
 
-
 // root route
-app.get("/", (req, res) => {
-  res.send("I am root route");
-});
+// app.get("/", (req, res) => {
+//   res.send("I am root route");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash())

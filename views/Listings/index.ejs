@@ -1,5 +1,79 @@
 <% layout("Layouts/boilerplate") %>
-<h3 class="listing-heading">All Listings</h3>
+<style>
+  
+  .filters:hover{
+  opacity:1;
+  cursor: pointer;
+  }
+  #filter{
+    display: flex;
+    text-align: center;
+  }
+  .filters{
+    opacity: 0.8;
+    margin: 12px  3rem;
+  }
+  .tax-btn:hover{
+cursor: pointer;
+}
+
+.tax-btn-container{
+  margin-bottom: 15px;
+  color: #ff385c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+  .gst-price{
+    display: none;
+  }
+</style>
+  <div id="filter">
+  <div class="filters">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p>Trending</p>
+  </div>
+  <div class="filters">
+    <div><i class="fa-solid fa-bed"></i></div>
+    <p>Rooms</p>
+  </div>
+  <div class="filters">
+    <div><i class="fa-solid fa-umbrella-beach"></i></div>
+    <p>Beaches</p>
+  </div>
+  <div class="filters">
+    <div><i class="fa-solid fa-mountain"></i></div>
+    <p>Mountains</p>
+  </div>
+  
+  <div class="filters">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p>Pools</p>
+  </div>
+  <div class="filters">
+    <div><i class="fa-solid fa-tent"></i></div>
+    <p>Camping</p>
+  </div>
+  <div class="filters">
+    <div><i class="fa-solid fa-city"></i></div>
+    <p>Cities</p>
+  </div>
+  <div class="filters">
+    <div><i class="fa-brands fa-fort-awesome"></i></div>
+    <p>Castle</p>
+  </div>
+  <div class="tax-btn-container" >
+  <div class="form-check-reverse  form-switch ">
+  <input class="form-check-input tax-btn" type="checkbox" role="switch" id="switchCheckDefault">
+  <label  class="form-check-label tax-btn" for="switchCheckDefault">Apply Taxes</label>
+  </div>
+</div>
+  
+  </div>
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
   <%for(let listing of allListings){%>
   <a class="card-container" href="/listings/<%=listing._id%>">
@@ -7,13 +81,38 @@
       <img src="<%-listing.image.url%>" class="card-img-top" alt="listing-image" />
       <div class="card-img-overlay"></div>
       <div class="card-body">
-        <p class="card-text">
-          <b><%-listing.title%></b>
-          <br />
-          Price: &#8377;<%-listing.price.toLocaleString("en-IN")%> /night
-        </p>
+      <p class="card-text">
+      <b><%- listing.title %></b>
+      <br />
+
+      <% 
+        const price = Number(listing.price);
+        const gst = price * 18 / 100;
+        const total = price + gst;
+      %>
+
+      Price: &#8377;<%= price.toLocaleString("en-IN") %> /night  
+      <i class="gst-price">
+        <b>+ 18% GST</b> = &#8377;<%= total.toLocaleString("en-IN") %>
+      </i>
+    </p>
+
       </div>
     </div>
   </a>
   <%}%>
 </div>
+
+<script>
+  const tax_btn = document.getElementById("switchCheckDefault");
+  tax_btn.addEventListener("click", () => {
+    const gst_price=document.getElementsByClassName("gst-price")
+    for(let info of gst_price){
+      if(info.style.display!="inline"){
+        info.style.display="inline"
+      }else{
+        info.style.display="none"
+      }
+    }
+  });
+</script>

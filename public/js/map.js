@@ -7,9 +7,9 @@ const redIcon = L.icon({
   popupAnchor: [1, -34],
 });
 
-const map = L.map("map").setView(points, 13);
+const map = L.map("map").setView(points, 10);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
 const marker = L.marker(points, { icon: redIcon }).addTo(map);
-marker.bindPopup(`Hello! I am in ${loc}`).openPopup();
+marker.bindPopup(`${loc}`).openPopup();

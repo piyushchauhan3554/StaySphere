@@ -36,7 +36,7 @@ module.exports.newListingPost = async (req, res) => {
     req.flash("error", "No Such Location Found");
     return res.redirect("/listings/new");
   }
-  
+
   const lat = data[0].lat;
   const lon = data[0].lon;
   l1.coordinates.push(lat);
@@ -45,9 +45,7 @@ module.exports.newListingPost = async (req, res) => {
   l1.image.url = path;
   l1.image.filename = filename;
   l1.owner = req.user._id;
-  const ll = await l1.save();
-  console.log(ll);
-
+  await l1.save();
   req.flash("success", "new Listing Added!!");
   res.redirect("/listings");
 };

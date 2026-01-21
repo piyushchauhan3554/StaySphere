@@ -1,6 +1,31 @@
+<style>
+  .search-btn{
+    background-color:#ff385c;
+    color: white;
+    border: none;
+    padding: 1px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+  }
+  .search-btn i{
+    margin-right: 8px;
+  }
+
+  .search-btn:hover{
+    background-color:#ff385c;
+    color: white;
+    border: none;
+  }
+
+  .search-input{
+    border-radius: 50px;
+    padding-left: 20px !important;
+  }
+</style>
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-jelly-fill fa-regular fa-house"></i>StaySphere</a>
+    <a class="navbar-brand" href="/listings"><i class="fa-jelly-fill fa-regular fa-house"></i>StaySphere</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -14,16 +39,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add new Listings</a>
       </div>
       <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+        <input class="form-control me-2 search-input" type="search" placeholder="Eg: New Delhi" />
+        <button class="btn btn-outline-danger search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+      </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Add New Stay</a>
         <%if(!currUser){%>
-          <a class="nav-link" href="/signup">Sign Up</a>
-          <a class="nav-link" href="/login">Login In</a>
+          <b><a class="nav-link" href="/signup">Sign Up</a></b>
+          <b><a class="nav-link" href="/login">Login In</a></b>
         <%}else{%>
-          <a class="nav-link" href="/logout">Logout</a>
+          <b><a class="nav-link" href="/logout">Logout</a></b>
         <%}%>
       </div>
     </div>
