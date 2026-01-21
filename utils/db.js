@@ -1,9 +1,9 @@
 // database connection
 
 const mongoose = require("mongoose");
-const Mongo_URL = process.env.Mongo_URL;
+const MONGO_ATLAS_URL= process.env.MONGO_ATLAS_URL;
 async function DBConnection() {
-  await mongoose.connect(Mongo_URL);
+  await mongoose.connect(MONGO_ATLAS_URL);
 }
 
 DBConnection()

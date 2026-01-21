@@ -36,10 +36,7 @@ const sessionOptions = {
   },
 };
 
-// root route
-// app.get("/", (req, res) => {
-//   res.send("I am root route");
-// });
+
 
 app.use(session(sessionOptions));
 app.use(flash())
@@ -56,17 +53,6 @@ app.use((req,res,next)=>{
   next()
 })
 
-// create demoUser
-app.get("/demoUser",async (req,res)=>{
-  const fakeUser={
-    username:"piyush",
-    email:"piyush@gamil.com"
-  }
-  let u=await User.register(fakeUser,"abvirat")
-  console.log(u);
-  
-  res.send("user added successfully")
-})
 
 // routes
 app.use("/listings", listingsRouter);
