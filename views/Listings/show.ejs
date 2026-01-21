@@ -1,5 +1,8 @@
 <% layout("Layouts/boilerplate") %>
-
+<script>
+  const points=<%-JSON.stringify(list.coordinates)%>;
+  const loc=<%-JSON.stringify(list.location)%>
+</script>
 <div class="row">
   <div class="col-8 offset-2 listing-heading">
     <b><h3><%=list.title%></h3></b>
@@ -93,6 +96,11 @@
         </div>
         <%}%> <%}%>
       </div>
+
+      <p><b>Location :</b> you'll be there</p>
+      <div id="map"></div>
+
     </div>
+
   </div>
 </div>

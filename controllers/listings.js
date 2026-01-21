@@ -25,11 +25,29 @@ module.exports.showListings = async (req, res) => {
 
 module.exports.newListingPost = async (req, res) => {
   const l1 = new Listing(req.body.listings);
+
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${l1.location}`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (data.length === 0) {
+    console.log("location not found");
+    req.flash("error", "No Such Location Found");
+    return res.redirect("/listings/new");
+  }
+  
+  const lat = data[0].lat;
+  const lon = data[0].lon;
+  l1.coordinates.push(lat);
+  l1.coordinates.push(lon);
   const { path, filename } = req.file;
   l1.image.url = path;
   l1.image.filename = filename;
   l1.owner = req.user._id;
-  const doc = await l1.save();
+  const ll = await l1.save();
+  console.log(ll);
+
   req.flash("success", "new Listing Added!!");
   res.redirect("/listings");
 };

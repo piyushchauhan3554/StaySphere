@@ -1,7 +1,7 @@
 const express = require("express");
-const {storage} =require("../utils/cloudinary.js")
-const multer  = require('multer')
-const upload = multer({storage})
+const { storage } = require("../utils/cloudinary.js");
+const multer = require("multer");
+const upload = multer({ storage });
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const { validateListings } = require("../middlewares/validation.js");
@@ -13,10 +13,10 @@ router
   .get(wrapAsync(ListingController.renderListings))
   .post(
     isLoggedIn,
-    upload.single('listings[image]'),
+    upload.single("listings[image]"),
     validateListings,
     wrapAsync(ListingController.newListingPost),
-  )
+  );
 
 // create route
 router.get("/new", isLoggedIn, (req, res) => {
@@ -29,7 +29,7 @@ router
   .put(
     isLoggedIn,
     isOwner,
-    upload.single('listings[image]'),
+    upload.single("listings[image]"),
     validateListings,
     wrapAsync(ListingController.updateListing),
   )

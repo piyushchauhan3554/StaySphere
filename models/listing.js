@@ -16,6 +16,10 @@ const listingSchema = new mongoose.Schema({
   },
   price: { type: Number, required: true },
   location: { type: String, required: true },
+  coordinates:{
+    type:[Number],
+    required:true
+  },
   country: { type: String, required: true },
   reviews: [
     {

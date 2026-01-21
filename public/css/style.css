@@ -222,38 +222,42 @@ footer {
 
 /* show img */
 
-.show-img{
+.show-img {
   height: 35vh;
   border-radius: 14px;
 }
 
-.info-container{
+.info-container {
   display: flex;
   flex-direction: column;
 }
 
-.show-btns-containers{
+.show-btns-containers {
   display: flex;
   gap: 20px;
 }
 
-.show-card{
+.show-card {
   border: 2px solid rgb(223, 217, 217) !important;
   padding: 10px !important;
 }
 
-.show-edit-btn{
+.show-edit-btn {
   background-color: red !important;
   border: none;
   color: white !important;
   padding: 6px 22px !important;
 }
 
-.show-edit-btn:hover{
+.show-edit-btn:hover {
   background-color: rgb(234, 60, 60) !important;
 }
 
-.err-msg-container{
+.err-msg-container {
   text-align: center;
 }
 
+#map {
+  height: 400px; /* required */
+  width: 100%;
+}
