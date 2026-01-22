@@ -5,7 +5,7 @@ const dataObj = require("./data.js");
 DBConnection();
 
 async function initDB() {
-  dataObj.data=dataObj.data.map((obj)=>({...obj,owner:'69711016f3ceb519f17a2837'}))
+  dataObj.data=dataObj.data.map((obj)=>({...obj,owner:'6971eb05996ea38a35d32159'}))
   await Listing.deleteMany({});
   await Listing.insertMany(dataObj.data);
   console.log("Data initialize successfully");
