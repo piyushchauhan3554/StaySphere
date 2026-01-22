@@ -70,10 +70,18 @@ app.use((req, res, next) => {
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
+
+//root route
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 // if none of the route match
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page not found"));
 });
+
+
 
 // custom error handler
 app.use((err, req, res, next) => {
