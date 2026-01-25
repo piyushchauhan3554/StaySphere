@@ -262,5 +262,42 @@ footer {
   width: 100%;
 }
 
+/* filter  */
+
+.filters:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+#filter {
+  display: flex;
+  text-align: center;
+}
+.filters {
+  opacity: 0.8;
+  margin: 12px 3rem;
+}
+.tax-btn:hover {
+  cursor: pointer;
+}
+
+.tax-btn-container {
+  margin-bottom: 15px;
+  color: #ff385c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.gst-price {
+  display: none;
+}
+
+.filter-links {
+  text-decoration: none;
+  color: #e6032c;
+}
 
 

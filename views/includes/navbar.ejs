@@ -1,27 +1,28 @@
 <style>
-  .search-btn{
-    background-color:#ff385c;
-    color: white;
-    border: none;
-    padding: 1px 20px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-  }
-  .search-btn i{
-    margin-right: 8px;
-  }
+  .search-btn {
+  background-color: #ff385c;
+  color: white;
+  border: none;
+  padding: 1px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+.search-btn i {
+  margin-right: 8px;
+}
 
-  .search-btn:hover{
-    background-color:#ff385c;
-    color: white;
-    border: none;
-  }
+.search-btn:hover {
+  background-color: #ff385c;
+  color: white;
+  border: none;
+}
 
-  .search-input{
-    border-radius: 50px;
-    padding-left: 20px !important;
-  }
+.search-input {
+  border-radius: 50px;
+  padding-left: 20px !important;
+}
+
 </style>
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
@@ -42,10 +43,10 @@
         <a class="nav-link" href="/listings">All Listings</a>
       </div>
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-        <input class="form-control me-2 search-input" type="search" placeholder="Eg: New Delhi" />
+        <form class="d-flex" role="search" method="post" action="/listings/location">
+        <input class="form-control me-2 search-input" type="search" placeholder="search location" name="location" />
         <button class="btn btn-outline-danger search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-      </form>
+        </form>
       </div>
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Add New Stay</a>

@@ -22,7 +22,9 @@ router
 router.get("/new", isLoggedIn, (req, res) => {
   res.render("../views/Listings/new.ejs");
 });
+// filter on the based of location
 
+router.route("/location").post(wrapAsync(ListingController.ListingLocation));
 router
   .route("/:id")
   .get(wrapAsync(ListingController.showListings))
@@ -43,5 +45,11 @@ router.get(
   isOwner,
   wrapAsync(ListingController.editListing),
 );
+
+// filter listings
+
+router
+  .route("/category/:filter")
+  .get(wrapAsync(ListingController.filterListing));
 
 module.exports = router;

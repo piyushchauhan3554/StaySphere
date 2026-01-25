@@ -45,7 +45,9 @@ module.exports.newListingPost = async (req, res) => {
   l1.image.url = path;
   l1.image.filename = filename;
   l1.owner = req.user._id;
-  await l1.save();
+  l1.location=req.body.listings.location.toLowerCase();
+  const newListing=await l1.save();
+  // console.log(newListing);
   req.flash("success", "new Listing Added!!");
   res.redirect("/listings");
 };
@@ -83,6 +85,21 @@ module.exports.updateListing = async (req, res) => {
   }
   req.flash("success", "Listing Updated Successfully");
   res.redirect(`/listings/${id}`);
+};
+
+module.exports.filterListing = async (req, res) => {
+  let { filter } = req.params;
+  const allListings = await Listing.find({ category: filter });
+  res.render("../views/Listings/filter.ejs", { allListings });
+};
+
+module.exports.ListingLocation = async (req, res) => {
+  const allListings = await Listing.find({ location: req.body.location.toLowerCase()});
+  if (allListings.length === 0) {
+    req.flash("error", "No Listing for this Location");
+    return res.redirect("/listings");
+  }
+  res.render("../views/Listings/filter.ejs", { allListings });
 };
 
 module.exports.destroyListing = async (req, res) => {
