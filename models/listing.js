@@ -7,12 +7,15 @@ const listingSchema = new mongoose.Schema({
     url: {
       type: String,
       default: process.env.default_img_url,
-      // if user's shared image is ""
       set: (v) => (v === "" ? process.env.default_img_url : v),
     },
     filename: {
       type: String,
     },
+  },
+  category:{
+    type:String,
+    // enum:['Trending','Rooms','Beaches','Mountains','Pools','Camping','Cities','Castle','Others']
   },
   price: { type: Number, required: true },
   location: { type: String, required: true },

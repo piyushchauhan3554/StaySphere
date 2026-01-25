@@ -8,6 +8,7 @@ listingSchema = Joi.object({
       url: Joi.string,
       filename: Joi.string,
     }),
+    category:Joi.string().required(),
     price: Joi.number().required().min(0),
     country: Joi.string().required(),
     location: Joi.string().required(),

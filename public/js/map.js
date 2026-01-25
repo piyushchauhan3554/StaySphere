@@ -7,7 +7,7 @@ const redIcon = L.icon({
   popupAnchor: [1, -34],
 });
 
-const map = L.map("map").setView(points, 10);
+const map = L.map("map").setView(points, 12);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
