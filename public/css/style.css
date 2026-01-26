@@ -381,9 +381,13 @@ footer {
   display: flex;
   text-align: center;
   flex-wrap: nowrap;
+  /* gap: 1rem; */
   align-items: center;
   justify-content: center;
+  overflow-x: auto;
   padding: 0 1rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 #filter::-webkit-scrollbar {
