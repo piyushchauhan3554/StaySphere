@@ -1,52 +1,84 @@
-<%layout("Layouts/boilerplate")%>
-<div class="row mt-3">
-  <h5 class="col-6 offset-3" style="text-align: center">Sign up form</h5>
-  <div class="col-6 offset-3 mt-5">
-    <form action="/signup" method="post" novalidate class="needs-validation">
-      <div class="mb-2">
-        <label for="username" class="form-label">username</label>
-        <input
-          class="form-control"
-          type="text"
-          id="username"
-          placeholder="write your username"
-          name="username"
-          required
-        />
-        <div class="valid-feedback">username looks good</div>
-        <div class="invalid-feedback">enter a username</div>
+<% layout("Layouts/boilerplate") %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-6">
+      <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-success text-white text-center py-4">
+          <h3 class="mb-0 fw-bold">
+            <i class="fas fa-user-plus me-2"></i>Join StaySphere
+          </h3>
+          <p class="mb-0 mt-2">
+            Create your account to start exploring amazing stays
+          </p>
+        </div>
+        <div class="card-body p-5">
+          <form
+            action="/signup"
+            method="post"
+            novalidate
+            class="needs-validation"
+          >
+            <div class="mb-4">
+              <label for="username" class="form-label fw-bold">
+                <i class="fas fa-user me-2 text-success"></i>Username
+              </label>
+              <input
+                class="form-control form-control-lg"
+                type="text"
+                id="username"
+                placeholder="Choose a username"
+                name="username"
+                required
+              />
+              <div class="valid-feedback">Username looks good!</div>
+              <div class="invalid-feedback">Please enter a username.</div>
+            </div>
+            <div class="mb-4">
+              <label for="email" class="form-label fw-bold">
+                <i class="fas fa-envelope me-2 text-success"></i>Email
+              </label>
+              <input
+                class="form-control form-control-lg"
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                name="email"
+                required
+              />
+              <div class="valid-feedback">Email looks correct!</div>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="mb-4">
+              <label for="password" class="form-label fw-bold">
+                <i class="fas fa-lock me-2 text-success"></i>Password
+              </label>
+              <input
+                class="form-control form-control-lg"
+                type="password"
+                id="password"
+                placeholder="Create a secure password"
+                name="password"
+                required
+              />
+              <div class="valid-feedback">Password looks good!</div>
+              <div class="invalid-feedback">
+                Please enter a secure password.
+              </div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg">
+                <i class="fas fa-user-plus me-2"></i>Sign Up
+              </button>
+            </div>
+          </form>
+          <div class="text-center mt-4">
+            <p class="mb-0">
+              Already have an account?
+              <a href="/login" class="text-success fw-bold">Login here</a>
+            </p>
+          </div>
+        </div>
       </div>
-
-      <div class="mb-2">
-        <label for="email" class="form-label">email</label>
-        <input
-          class="form-control"
-          type="email"
-          id="email"
-          placeholder="write your email"
-          name="email"
-          required
-        />
-        <div class="valid-feedback">email looks correct</div>
-        <div class="invalid-feedback">enter a valid email</div>
-      </div>
-
-      <div class="mb-2">
-        <label for="password" class="form-label">password</label>
-        <input
-          class="form-control"
-          type="password"
-          id="password"
-          placeholder="write your password"
-          name="password"
-          required
-        />
-        <div class="valid-feedback">password looks good</div>
-        <div class="invalid-feedback">enter a secure password</div>
-      </div>
-      <div>
-        <button class="btn btn-success mt-2">Signup</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>

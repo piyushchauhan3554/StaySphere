@@ -1,61 +1,77 @@
 <style>
   .search-btn {
-  background-color: #ff385c;
-  color: white;
-  border: none;
-  padding: 1px 20px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-}
-.search-btn i {
-  margin-right: 8px;
-}
-
-.search-btn:hover {
-  background-color: #ff385c;
-  color: white;
-  border: none;
-}
-
-.search-input {
-  border-radius: 50px;
-  padding-left: 20px !important;
-}
-
+    background-color: #ff385c;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  .search-btn i {
+    margin-right: 8px;
+  }
+  .search-btn:hover {
+    background-color: #e0314b;
+    transform: scale(1.05);
+  }
+  .search-input {
+    border-radius: 50px;
+    padding-left: 20px !important;
+    border: 2px solid #ddd;
+    transition: border-color 0.3s ease;
+  }
+  .search-input:focus {
+    border-color: #ff385c;
+    box-shadow: 0 0 0 0.2rem rgba(255, 56, 92, 0.25);
+  }
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  .navbar-brand:hover {
+    color: #ff385c !important;
+  }
+  .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #ff385c !important;
+  }
 </style>
-<nav class="navbar navbar-expand-md bg-body-tertiary">
+<nav class="navbar navbar-expand-md bg-white shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-jelly-fill fa-regular fa-house"></i>StaySphere</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
+      <i class="fa-solid fa-house text-primary me-2"></i>
+      <span>StaySphere</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">All Listings</a>
+      <div class="navbar-nav me-auto">
+        <a class="nav-link" href="/listings"><i class="fas fa-list me-1"></i>All Listings</a>
+        <% if (currUser) { %>
+          <a class="nav-link" href="/listings/new"><i class="fas fa-plus me-1"></i>Add New Stay</a>
+        <% } %>
       </div>
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search" method="post" action="/listings/location">
-        <input class="form-control me-2 search-input" type="search" placeholder="search location" name="location" />
-        <button class="btn btn-outline-danger search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+      <div class="navbar-nav ms-auto d-flex align-items-center">
+        <form class="d-flex me-3" role="search" method="post" action="/listings/location">
+          <input class="form-control me-2 search-input" type="search" placeholder="Search location" name="location" aria-label="Search" />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="d-none d-md-inline ms-1">Search</span>
+          </button>
         </form>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Add New Stay</a>
-        <%if(!currUser){%>
-          <b><a class="nav-link" href="/signup">Sign Up</a></b>
-          <b><a class="nav-link" href="/login">Login In</a></b>
-        <%}else{%>
-          <b><a class="nav-link" href="/logout">Logout</a></b>
-        <%}%>
+        <% if (!currUser) { %>
+          <a class="nav-link fw-bold text-primary" href="/signup"><i class="fas fa-user-plus me-1"></i>Sign Up</a>
+          <a class="nav-link fw-bold text-success" href="/login"><i class="fas fa-sign-in-alt me-1"></i>Login</a>
+        <% } else { %>
+          <span class="navbar-text me-3">Welcome, <%= currUser.username %>!</span>
+          <a class="nav-link fw-bold text-danger" href="/logout"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
+        <% } %>
       </div>
     </div>
   </div>
