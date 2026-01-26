@@ -28,7 +28,18 @@ module.exports.newListingPost = async (req, res) => {
 
   const url = `https://nominatim.openstreetmap.org/search?format=json&q=${l1.location}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "StaySphere/1.0 (piyushchauhan8279@gmail.com)",
+      Accept: "application/json",
+    },
+  });
+  if (!response.ok) {
+    console.log("Geocoding failed:", response.status);
+    req.flash("error", "Location service unavailable");
+    return res.redirect("/listings/new");
+  }
+
   const data = await response.json();
 
   if (data.length === 0) {
@@ -45,8 +56,8 @@ module.exports.newListingPost = async (req, res) => {
   l1.image.url = path;
   l1.image.filename = filename;
   l1.owner = req.user._id;
-  l1.location=req.body.listings.location.toLowerCase();
-  const newListing=await l1.save();
+  l1.location = req.body.listings.location.toLowerCase();
+  const newListing = await l1.save();
   // console.log(newListing);
   req.flash("success", "new Listing Added!!");
   res.redirect("/listings");
@@ -94,7 +105,9 @@ module.exports.filterListing = async (req, res) => {
 };
 
 module.exports.ListingLocation = async (req, res) => {
-  const allListings = await Listing.find({ location: req.body.location.toLowerCase()});
+  const allListings = await Listing.find({
+    location: req.body.location.toLowerCase(),
+  });
   if (allListings.length === 0) {
     req.flash("error", "No Listing for this Location");
     return res.redirect("/listings");
